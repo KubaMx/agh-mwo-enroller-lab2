@@ -17,9 +17,17 @@ public class ParticipantRestController {
 	@Autowired
 	ParticipantService participantService;
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	/*@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<?> getParticipants() {
 		Collection<Participant> participants = participantService.getAll();
+		return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
+	}*/
+
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public ResponseEntity<?> getParticipants(@RequestParam(value = "sortBy", defaultValue = "") String sortBy,
+											 @RequestParam(value = "sortOrder", defaultValue = "") String sortOrder,
+											 @RequestParam(value = "searchKey", defaultValue = "") String searchKey) {
+		Collection<Participant> participants = participantService.getAll(sortBy, sortOrder, searchKey);
 		return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
 	}
 
